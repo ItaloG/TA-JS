@@ -18,7 +18,10 @@ AfterAll((done) => {
 });
 
 Given("I have a running server", async function () {
-  if (_testServer) return;
+  if (_testServer) {
+    this.testServerAddress = `http://localhost:${_testServer.address().port}`;
+    return;
+  }
   _testServer = server.listen();
 
   await waitForServerStatus(_testServer);

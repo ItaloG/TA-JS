@@ -8,7 +8,7 @@ function getUserCategory(birthDay) {
   const age = new Date().getFullYear() - new Date(birthDay).getFullYear();
   if (age < 18) throw new Error("User must be 18yo or older");
   if (age >= 18 && age <= 25) return "young-adult";
-  if (age >= 26 && age <= 50) return "adult";
+  if (age >= 26 && age <= 50) return "Adult";
   return "senior";
 }
 

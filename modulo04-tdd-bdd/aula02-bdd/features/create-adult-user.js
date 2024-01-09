@@ -21,7 +21,7 @@ BeforeStep(function () {
 });
 
 When(
-  "I create a new user with the following details:",
+  "I create a new user with the following details 2:",
   async function (dataTable) {
     const [data] = dataTable.hashes();
     const response = await createUser(data);
@@ -31,13 +31,22 @@ When(
   }
 );
 
-Then("I request the API with the user's ID", async function () {
+Then(
+  "the user should be categorized as an {string}",
+  async function (category) {
+    const user = await findUserById(_context.userData.id);
+    _context.createdUserData = user;
+    assert.strictEqual(_context.createdUserData.category, category);
+  }
+);
+
+When("I request the user with ID {string}", async function (id) {
   const user = await findUserById(_context.userData.id);
   _context.createdUserData = user;
 });
 
 Then(
-  "I should receive a JSON response with the user's details",
+  "I should receive a JSON response with the user's details 2",
   async function () {
     const expectedKeys = ["name", "birthDay", "id", "category"];
 
@@ -48,6 +57,6 @@ Then(
   }
 );
 
-Then("The user's category should be {string}", async function (category) {
+Then("the user's category should be {string}", function (category) {
   assert.strictEqual(_context.createdUserData.category, category);
 });
